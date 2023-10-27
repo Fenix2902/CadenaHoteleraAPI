@@ -21,12 +21,12 @@ export class ControladorReservas {
       let servicioReserva = new ServicioReserva();
       let id = request.params.id;
       response.status(200).json({
-        mensaje: "exito buscando los datos",
-        datos: await servicioReserva.buscarPorId(id)
+        "mensaje": "exito buscando los datos",
+        "datos": await servicioReserva.buscarPorId(id)
       });
     } catch (error) {
       response.status(400).json({
-        mensaje: "fallamos" + error,
+        "mensaje": "fallamos" + error,
       });
     }
   }
@@ -35,10 +35,10 @@ export class ControladorReservas {
       let servicioReserva = new ServicioReserva();
       let id = request.params.id;
       let datos = request.body;
-      let respuesta = await servicioReserva.modificar(id, datos);
+      await servicioReserva.modificar(id, datos);
       response.status(200).json({
-        mensaje: "exito buscando los datos",
-        datos: respuesta,
+        "mensaje": "exito modificando los datos",
+        "datos": datos,
       });
     } catch (error) {
       response.status(400).json({
@@ -50,11 +50,13 @@ export class ControladorReservas {
     try {
       let servicioReserva = new ServicioReserva();
       let datos = request.body;
+      await servicioReserva.registrar(datos)
       if (datos.fechaInicioReserva && datos.fechaFinalReserva) {
         let diferencia = Math.floor(
           (new Date(datos.fechaFinalReserva) -
             new Date(datos.fechaInicioReserva)) /
-            (1000 * 60 * 60 * 24)
+            (1000 * 60 * 60 * 24),
+            new Date(datos.diferencia)
         );
 
         response.status(200).json({
@@ -77,7 +79,7 @@ export class ControladorReservas {
     try {
       let servicioReserva = new ServicioReserva();
       let id = request.params.id;
-      // let respuesta = await servicioReserva.eliminar(id);
+      await servicioReserva.eliminar(id);
       response.status(200).json({
         mensaje: "exito buscando los datos",
         datos: id,

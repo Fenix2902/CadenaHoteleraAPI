@@ -7,7 +7,7 @@ export class ControladorHabitacion{
         try{
             let servicioHabitacion = new ServicioHabitacion()
             response.status(200).json({
-                "mensaje":"exito buscando los datos",
+                "mensaje":"exito estas son todas las habitaciones",
                 "datos": await servicioHabitacion.buscarTodas()
             })
         }catch(error){
@@ -23,6 +23,7 @@ export class ControladorHabitacion{
             response.status(200).json({
                 "mensaje":"exito buscando los datos",
                 "datos":await servicioHabitacion.buscarPorId(id)
+                
             })
         }catch(error){
             response.status(400).json({
@@ -35,10 +36,10 @@ export class ControladorHabitacion{
             let servicioHabitacion = new ServicioHabitacion()
             let id=request.params.id
             let datos=request.body
-            let respuesta = await servicioHabitacion.modificar(id,datos) //esto
+            await servicioHabitacion.modificar(id,datos) //esto
             response.status(200).json({
-                "mensaje":"exito buscando los datos",
-                "datos": respuesta
+                "mensaje":"exito modificado los datos",
+                "datos": datos
             })
         }catch(error){
             response.status(400).json({
@@ -50,7 +51,7 @@ export class ControladorHabitacion{
         try{
             let servicioHabitacion = new ServicioHabitacion()
             let datos=request.body
-            // let respuesta = await servicioHabitacion.registrar(datos)
+            await servicioHabitacion.registrar(datos)
             response.status(200).json({
                 "mensaje":"exito registrando los datos",
                 "datos": datos,
@@ -67,7 +68,7 @@ export class ControladorHabitacion{
             let id=request.params.id
             let respuesta = await servicioHabitacion.eliminar(id)
             response.status(200).json({
-                "mensaje":"exito buscando los datos",
+                "mensaje":"exito eliminando los datos",
                 "datos": respuesta
             })
         }catch(error){
